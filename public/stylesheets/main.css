@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:600');
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+* {
+    padding:0px;
+    margin: 0px;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+label {
+    display: block;
+    font-size: 24px;
+    color: #d0c7a2;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+}
+
+#main-container {
+    height:100%;
+    background-image : url('../images/background.jpg');
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
+#main-title {
+    text-align: center;
+    background: #262d2e;
+    font-family: 'Fjalla One', sans-serif;
+    letter-spacing: 1px;
+    color: 	#d0c7a2;
+    font-size: 36px;
+    padding: 15px;
+}
+#rightPanel{
+    margin: 40px;
+    width: 30%;
+    height: 80%;
+    background-color: #262d2e;
+    padding: 30px;
+}
+
+input {
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 36px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 28px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-family: 'Oswald', sans-serif;
+
+}
+
+input[type=submit],button#registerBtn{
+    display: inline-block;
+    width: 200px;
+    font-size: 24px;
+    font-family: 'Oswald', sans-serif;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
