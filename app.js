@@ -6,12 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs  = require('express-handlebars');
 var session = require('express-session');
-
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://127.0.0.1/searchEngine';
 var index = require('./routes/index');
-var users = require('./routes/users');
-
+var login = require('./routes/login');
+var register = require('./routes/register');
 var app = express();
-
+mongoose.connect(mongoDB);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -25,9 +26,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret: "Shh, its a secret!"}));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', index);
-app.use('/users', users);
+app.use('/login', login);
+app.post('/logout', function(req,res,next){
+  delete req.session.uid;
+  res.redirect('/');
+});
+app.use('/register',register);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

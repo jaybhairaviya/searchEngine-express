@@ -16,8 +16,8 @@
             {{#unless isLogged}}
             <div id='loginTab'>
                 <form action="/login" method='post'>
-                    <label htmlFor="email">Username</label>
-                    <input type="email" name="email" class="emailField"/>
+                    <label htmlFor="username">Username</label>
+                    <input type="email" name="username" class="emailField"/>
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" class="pwdField"/>
                     <input type="submit" value="Login"/>
@@ -25,9 +25,9 @@
                 </form>
             </div>
             <div id="regTab">
-                <form action="">
-                <label htmlFor="email">Username</label>
-                    <input type="email" name="email" class="emailField"/>
+                <form action="/register" method="post">
+                <label htmlFor="username">Username</label>
+                    <input type="email" name="username" class="emailField"/>
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" class="pwdField"/>
                     <label htmlFor="college">College</label>
@@ -37,6 +37,12 @@
                 </form>
             </div>
             {{/unless}}
+            {{#if isLogged}}
+            <h3 id='loggedTitle'>Welcome back <span style="color:red">{{username}}</span></h3>
+            <form action="/logout" method="post">
+              <input type="submit" name="submit" value="LOG OUT" id='logoutBtn'>
+            </form>
+            {{/if}}
           </div>
       </div>
     </div>
