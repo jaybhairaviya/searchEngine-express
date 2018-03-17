@@ -3,7 +3,12 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  if(req.session.uid){
+    res.render('index',{title:"asda",isLogged:true});
+  }
+  else{
+    res.render('index',{title:"asda",isLogged:false});
+  }
 });
 
 module.exports = router;

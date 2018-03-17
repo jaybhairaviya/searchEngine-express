@@ -6,13 +6,14 @@
     <title>Search Engine</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/main.css" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     <div id="root" style="height:100%;">
       <div id='main-container'>
           <h3 id='main-title'>Welcome to the Search Engine</h3>
           <div id="rightPanel">
+            {{#unless isLogged}}
             <div id='loginTab'>
                 <form action="/login" method='post'>
                     <label htmlFor="email">Username</label>
@@ -32,10 +33,23 @@
                     <label htmlFor="college">College</label>
                     <input type="text" name="college" id="college"/>
                     <input type="submit" value="Register"/>
+                    <button type='button' id='loginBtn'>Login</button>
                 </form>
             </div>
+            {{/unless}}
           </div>
       </div>
     </div>
 </body>
+<script type="text/javascript">
+  $("#regTab").hide();
+  $("#registerBtn").on('click',function(){
+    $("#loginTab").hide();
+    $("#regTab").show();
+  });
+  $("#loginBtn").on('click',function(){
+    $("#loginTab").show();
+    $("#regTab").hide();
+  })
+</script>
 </html>
