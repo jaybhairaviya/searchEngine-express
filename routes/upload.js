@@ -13,6 +13,9 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 router.post('/',upload.single('file'),function(req,res,next){
+  var tags = req.body.tags;
+  tags = tags.split(',');
+  req.file.tags = tags;
   var newFile = new FileModel(req.file);
   newFile.save(function(err){
     if(err){

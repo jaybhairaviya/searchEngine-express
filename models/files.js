@@ -4,7 +4,8 @@ var FileSchema = new mongoose.Schema({
     uploadedAt: {type: Date, default: Date.now},
     originalname: {type: String, required: true},
     path: {type: String, required: true},
-    size: {type: String, required: true}
+    size: {type: String, required: true},
+    tags: [{type: String}]
   }, {
     collection: 'files'
 });
