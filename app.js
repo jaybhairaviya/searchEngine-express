@@ -16,6 +16,7 @@ var uploads = require('./routes/upload');
 var search = require('./routes/search');
 var download = require('./routes/download');
 var admin = require('./routes/admin');
+var deleteFile = require('./routes/delete');
 var app = express();
 mongoose.connect(mongoDB);
 // view engine setup
@@ -42,6 +43,7 @@ app.use('/upload',uploads);
 app.use('/search',search);
 app.use('/uploads',download);
 app.use('/admin',admin);
+app.use('/delete',deleteFile);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

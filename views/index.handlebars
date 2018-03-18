@@ -44,9 +44,9 @@
               <br>
               <form action="/upload" method="post" enctype="multipart/form-data">
                 <label for="file">Select file</label>
-                <input type="file" name="file" value="Upload File" id="file" title="Select a file" style="color:transparent" onchange="this.style.color = 'red'">
+                <input type="file" name="file" value="Upload File" id="file" title="Select a file" style="color:transparent" onchange="this.style.color = 'red'" required>
                 <label for="tags">Tags</label>
-                <input type="text" name="tags" id="tags">
+                <input type="text" name="tags" id="tags" required>
                 <input type="submit" value="Upload">
               </form>
               {{#if isAdmin}}
