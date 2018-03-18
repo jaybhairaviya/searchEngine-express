@@ -79,3 +79,7 @@ button#registerBtn,button#loginBtn {
   letter-spacing: 1px;
   font-size: 24px;
 }
+
+input#file {
+  font-size: 18px;
+}

@@ -6,7 +6,9 @@ router.get('/', function(req, res, next) {
   if(req.session.uid){
     controller.getById(req.session.uid,function(user){
       if(user){
-        res.render('index',{isLogged:true,username:user.username});
+        var success = req.cookies.success;
+        res.clearCookie('success');
+        res.render('index',{isLogged:true,username:user.username,success:success});
       }
       else {
         delete req.session.uid;

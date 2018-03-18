@@ -8,11 +8,22 @@ var exphbs  = require('express-handlebars');
 var session = require('express-session');
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb://127.0.0.1/searchEngine';
+var multer = require('multer');
 var index = require('./routes/index');
 var login = require('./routes/login');
 var register = require('./routes/register');
+var uploads = require('./routes/upload');
 var app = express();
 mongoose.connect(mongoDB);
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+var upload = multer({ storage: storage })
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -33,6 +44,7 @@ app.post('/logout', function(req,res,next){
   res.redirect('/');
 });
 app.use('/register',register);
+app.use('/upload',uploads);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
