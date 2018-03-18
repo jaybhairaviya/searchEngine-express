@@ -37,15 +37,24 @@ label {
     font-size: 36px;
     padding: 15px;
 }
-#rightPanel{
+#panelCont {
+  display: flex;
+}
+#leftPanel,#rightPanel{
+    display: inline-block;
     margin: 40px;
-    width: 30%;
     height: 80%;
     background-color: #262d2e;
     padding: 30px;
 }
+#leftPanel{
+  flex:1;
+}
+#rightPanel{
+  flex: 2;
+}
 
-input {
+input,#adminNav {
     box-sizing: border-box;
     width: 100%;
     line-height: 36px;
@@ -58,7 +67,7 @@ input {
 
 }
 
-input[type=submit],button#registerBtn,button#loginBtn,#logoutBtn{
+input[type=submit],button#registerBtn,button#loginBtn,#logoutBtn,#adminNav{
     display: inline-block;
     width: 200px;
     font-size: 24px;
@@ -70,10 +79,14 @@ input[type=submit],button#registerBtn,button#loginBtn,#logoutBtn{
     padding-bottom: 5px;
 }
 
-button#registerBtn,button#loginBtn {
+#adminNav {
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  text-align: center;
   background: #f45f42;
 }
-#loggedTitle {
+.loggedTitle {
   color: #d0c7a2;
   font-family: 'Oswald', sans-serif;
   letter-spacing: 1px;
@@ -82,4 +95,20 @@ button#registerBtn,button#loginBtn {
 
 input#file {
   font-size: 18px;
+}
+
+ul#results {
+  list-style: none;
+  padding-top: 10px;
+}
+
+ul a.result-item {
+  display: block;
+  text-decoration: none;
+  color:black;
+  padding: 10px 0px 10px 5px;
+  background: #d0c7a2;
+  border-bottom: 0.5px solid;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1px;
 }

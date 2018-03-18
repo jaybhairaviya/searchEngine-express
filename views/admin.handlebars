@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Search Engine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/admin.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="root" style="height:100%;">
+      <div id='main-container'>
+          <h3 id='main-title'>Welcome to the Search Engine</h3>
+          <div id="panelCont" style="height:100%;">
+            <div id="leftPanel">
+              {{#if isLogged}}
+              <h3 class='loggedTitle'>Welcome back <span style="color:red">{{username}}</span></h3>
+              <br>
+              <br>
+              <form action="/upload" method="post" enctype="multipart/form-data">
+                <label for="file">Select file</label>
+                <input type="file" name="file" value="Upload File" id="file" title="Select a file" style="color:transparent" onchange="this.style.color = 'red'">
+                <label for="tags">Tags</label>
+                <input type="text" name="tags" id="tags">
+                <input type="submit" value="Upload">
+              </form>
+              <form action="/logout" method="post">
+                <input type="submit" name="submit" value="LOG OUT" id='logoutBtn'>
+              </form>
+              {{#if success}}
+                <h4 style="color:red" id="successMsg">File added successfully</h3>
+              {{/if}}
+              {{/if}}
+            </div>
+            <div id="rightPanel">
+              {{#unless isLogged}}
+              <h3 class='loggedTitle'>Please login to continue</h3>
+              {{/unless}}
+              {{#if isLogged}}
+              <h3 class="loggedTitle">Results</h3>
+              <div>
+                  <ul id="results">
+                  </ul>
+              </div>
+              {{/if}}
+              <table id="admin-table">
+                <th>File name</th>
+                <th>File Path</th>
+                <th>File Delete</th>
+                {{#each data}}
+                <tr>
+                  <td>{{originalname}}</td>
+                  <td>{{path}}</td>
+                  <td><a href="delete/{{_id}}">Delete</a></td>
+                </tr>
+                {{/each}}
+              </table>
+            </div>
+          </div>
+      </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

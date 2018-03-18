@@ -14,6 +14,8 @@ var login = require('./routes/login');
 var register = require('./routes/register');
 var uploads = require('./routes/upload');
 var search = require('./routes/search');
+var download = require('./routes/download');
+var admin = require('./routes/admin');
 var app = express();
 mongoose.connect(mongoDB);
 // view engine setup
@@ -38,7 +40,8 @@ app.post('/logout', function(req,res,next){
 app.use('/register',register);
 app.use('/upload',uploads);
 app.use('/search',search);
-
+app.use('/uploads',download);
+app.use('/admin',admin);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

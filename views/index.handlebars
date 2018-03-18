@@ -12,52 +12,69 @@
     <div id="root" style="height:100%;">
       <div id='main-container'>
           <h3 id='main-title'>Welcome to the Search Engine</h3>
-          <div id="rightPanel">
-            {{#unless isLogged}}
-            <div id='loginTab'>
-                <form action="/login" method='post'>
-                    <label htmlFor="username">Username</label>
-                    <input type="email" name="username" class="emailField"/>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" class="pwdField"/>
-                    <input type="submit" value="Login"/>
-                    <button type='button' id='registerBtn'>Register</button>
-                </form>
+          <div id="panelCont" style="height:100%;">
+            <div id="leftPanel">
+              {{#unless isLogged}}
+              <div id='loginTab'>
+                  <form action="/login" method='post'>
+                      <label htmlFor="username">Username</label>
+                      <input type="email" name="username" class="emailField"/>
+                      <label htmlFor="password">Password</label>
+                      <input type="password" name="password" class="pwdField"/>
+                      <input type="submit" value="Login"/>
+                      <button type='button' id='registerBtn'>Register</button>
+                  </form>
+              </div>
+              <div id="regTab">
+                  <form action="/register" method="post">
+                  <label htmlFor="username">Username</label>
+                      <input type="email" name="username" class="emailField"/>
+                      <label htmlFor="password">Password</label>
+                      <input type="password" name="password" class="pwdField"/>
+                      <label htmlFor="college">College</label>
+                      <input type="text" name="college" id="college"/>
+                      <input type="submit" value="Register"/>
+                      <button type='button' id='loginBtn'>Login</button>
+                  </form>
+              </div>
+              {{/unless}}
+              {{#if isLogged}}
+              <h3 class='loggedTitle'>Welcome back <span style="color:red">{{username}}</span></h3>
+              <br>
+              <br>
+              <form action="/upload" method="post" enctype="multipart/form-data">
+                <label for="file">Select file</label>
+                <input type="file" name="file" value="Upload File" id="file" title="Select a file" style="color:transparent" onchange="this.style.color = 'red'">
+                <label for="tags">Tags</label>
+                <input type="text" name="tags" id="tags">
+                <input type="submit" value="Upload">
+              </form>
+              {{#if isAdmin}}
+              <a href="/admin" id='adminNav'>ADMIN</a>
+              {{/if}}
+              <form action="/logout" method="post">
+                <input type="submit" name="submit" value="LOG OUT" id='logoutBtn'>
+              </form>
+              <label for="search">Search</label>
+              <input type="text" name="search" id="search"/>
+              <input type="button" name="" value="Search" id="searchBtn" >
+              {{#if success}}
+                <h4 style="color:red" id="successMsg">File added successfully</h3>
+              {{/if}}
+              {{/if}}
             </div>
-            <div id="regTab">
-                <form action="/register" method="post">
-                <label htmlFor="username">Username</label>
-                    <input type="email" name="username" class="emailField"/>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" class="pwdField"/>
-                    <label htmlFor="college">College</label>
-                    <input type="text" name="college" id="college"/>
-                    <input type="submit" value="Register"/>
-                    <button type='button' id='loginBtn'>Login</button>
-                </form>
+            <div id="rightPanel">
+              {{#unless isLogged}}
+              <h3 class='loggedTitle'>Please login to continue</h3>
+              {{/unless}}
+              {{#if isLogged}}
+              <h3 class="loggedTitle">Results</h3>
+              <div>
+                  <ul id="results">
+                  </ul>
+              </div>
+              {{/if}}
             </div>
-            {{/unless}}
-            {{#if isLogged}}
-            <h3 id='loggedTitle'>Welcome back <span style="color:red">{{username}}</span></h3>
-            <br>
-            <br>
-            <form action="/upload" method="post" enctype="multipart/form-data">
-              <label for="file">Select file</label>
-              <input type="file" name="file" value="Upload File" id="file" title="Select a file" style="color:transparent" onchange="this.style.color = 'red'">
-              <label for="tags">Tags</label>
-              <input type="text" name="tags" id="tags">
-              <input type="submit" value="Upload">
-            </form>
-            <form action="/logout" method="post">
-              <input type="submit" name="submit" value="LOG OUT" id='logoutBtn'>
-            </form>
-            <label for="search">Search</label>
-            <input type="text" name="search" id="search"/>
-            <input type="button" name="" value="Search" id="searchBtn" >
-            {{#if success}}
-              <h4 style="color:red" id="successMsg">File added successfully</h3>
-            {{/if}}
-            {{/if}}
           </div>
       </div>
     </div>
@@ -74,19 +91,35 @@
   });
   $('#searchBtn').on('click',function(){
     var query = $('#search').val();
-    $.ajax({
-      method:'get',
-      url: '/search',
-      data : {
-        query : query,
-      },
-      success : function(data){
-        console.log(data);
-      },
-      error : function(err){
-        console.log(err);
-      }
-    });
+    var results = $('#results');
+    results.empty();
+    if(query == ''){
+      results.append(`<li><a class='result-item'>`+`Please input proper query`+`</a></li>`);
+    }
+    else{
+      $.ajax({
+        method:'get',
+        url: '/search',
+        data : {
+          query : query,
+        },
+        dataType : 'json',
+        success : function(data){
+          console.log(data);
+          if (data.length==0) {
+            results.append(`<li><a class='result-item'>`+`No files found`+`</a></li>`);
+          }
+          else{
+            $.each(data,function(index,element){
+              results.append(`<li><a class='result-item' href=${element.path}>`+element.originalname+`</a></li>`);
+            })
+          }
+        },
+        error : function(err){
+          console.log(err);
+        }
+      });
+    }
   });
 </script>
 </html>

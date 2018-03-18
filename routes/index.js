@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
       if(user){
         var success = req.cookies.success;
         res.clearCookie('success');
-        res.render('index',{isLogged:true,username:user.username,success:success});
+        res.render('index',{isLogged:true,username:user.username,success:success,isAdmin: req.session.u_role});
       }
       else {
         delete req.session.uid;

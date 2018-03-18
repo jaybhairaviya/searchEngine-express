@@ -10,7 +10,7 @@ router.post('/',function(req,res,next){
   if (controller.authenticate(req,res,function(user){
     if(user){
       req.session.uid = user._id;
-      console.log("success");
+      req.session.u_role = user.role;
       res.redirect('/');
     }
     else res.render('index',{isLogged:false,message:"Please check username and password"});
